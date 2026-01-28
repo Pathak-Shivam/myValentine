@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Valentine 💕</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&amp;family=Quicksand:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    .font-dancing { font-family: 'Dancing Script', cursive; }
+    .font-quicksand { font-family: 'Quicksand', sans-serif; }
+    
+    .page {
+      display: none;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+    }
+    
+    .page.active {
+      display: flex;
+    }
+    
+    .phone-frame {
+      width: 100%;
+      max-width: 390px;
+      aspect-ratio: 9/16;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse-heart {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes envelope-hover {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+    
+    .float-animation { animation: float 3s ease-in-out infinite; }
+    .pulse-heart { animation: pulse-heart 1.5s ease-in-out infinite; }
+    
+    .gift-box {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .gift-box:hover {
+      transform: scale(1.05);
+    }
+    
+    .back-btn {
+      transition: all 0.2s ease;
+    }
+    
+    .back-btn:hover {
+      transform: translateX(-3px);
+    }
+    
+    .btn-no {
+      transition: all 0.3s ease;
+    }
+    
+    .btn-no:hover {
+      transform: scale(0.95);
+    }
+    
+    .btn-yes {
+      transition: all 0.3s ease;
+    }
+    
+    .btn-yes:hover {
+      transform: scale(1.05);
+    }
+    
+    .photo-placeholder {
+      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+      border: 3px dashed #f48fb1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+    }
+    
+    .letter-paper {
+      background: linear-gradient(to bottom, #fffef0 0%, #fff8e1 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ffd700;
+      border-radius: 50%;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-quicksand">
+  <div id="app-wrapper" class="w-full h-full flex items-center justify-center" style="background: linear-gradient(135deg, #ffeef8 0%, #fff0f5 50%, #fce4ec 100%);"><!-- Page 1: Will you be my Valentine? -->
+   <div id="page-main" class="page active">
+    <div class="phone-frame flex flex-col items-center justify-center p-6 relative" style="background: linear-gradient(180deg, #fff5f8 0%, #ffe4ed 100%);"><!-- Floating hearts decoration -->
+     <div class="absolute top-4 left-4 text-2xl float-animation" style="animation-delay: 0s;">
+      💕
+     </div>
+     <div class="absolute top-8 right-6 text-xl float-animation" style="animation-delay: 0.5s;">
+      💗
+     </div>
+     <div class="absolute bottom-20 left-8 text-lg float-animation" style="animation-delay: 1s;">
+      💖
+     </div>
+     <div class="absolute bottom-16 right-4 text-2xl float-animation" style="animation-delay: 1.5s;">
+      💝
+     </div><!-- Photo placeholder -->
+     <div class="photo-placeholder w-48 h-48 mb-6 overflow-hidden"><span class="text-pink-400 text-sm text-center px-4">📷 Add her photo here</span>
+     </div><!-- Question -->
+     <h1 id="main-question" class="font-dancing text-3xl text-center mb-8 px-4" style="color: #d81b60;">Will you be my Valentine?</h1><!-- Heart decoration -->
+     <div class="text-5xl pulse-heart mb-8">
+      💖
+     </div><!-- Buttons -->
+     <div class="flex gap-4"><button id="btn-yes" class="btn-yes px-8 py-3 rounded-full font-semibold text-white shadow-lg" style="background: linear-gradient(135deg, #ec407a 0%, #d81b60 100%);"> Yes! 💕 </button> <button id="btn-no" class="btn-no px-8 py-3 rounded-full font-semibold shadow-lg" style="background: #f8bbd9; color: #ad1457;"> No 😢 </button>
+     </div>
+    </div>
+   </div><!-- Page 2: Go Back page -->
+   <div id="page-goback" class="page">
+    <div class="phone-frame flex flex-col items-center justify-center p-6 relative" style="background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 100%);">
+     <div class="text-6xl mb-6">
+      😤
+     </div>
+     <h2 class="font-dancing text-3xl text-center mb-4" style="color: #2e7d32;">Achha bete</h2>
+     <p class="text-center mb-8 text-gray-600">Chal chal chal😡</p><button id="btn-goback" class="px-8 py-3 rounded-full font-semibold text-white shadow-lg" style="background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);"> ← Go Back </button>
+    </div>
+   </div><!-- Page 3: Welcome page with 4 gifts -->
+   <div id="page-welcome" class="page">
+    <div class="phone-frame flex flex-col items-center p-6 relative overflow-y-auto" style="background: linear-gradient(180deg, #fff8e1 0%, #ffecb3 100%);"><!-- Back button --> <button class="back-btn absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center shadow-md" style="background: white;" onclick="showPage('page-main')"> <span style="color: #f57c00;">←</span> </button> <!-- Welcome title -->
+     <h1 id="welcome-title" class="font-dancing text-4xl text-center mt-8 mb-2" style="color: #e65100;">Welcome My Santu</h1>
+     <p class="text-center text-amber-700 mb-6">I have some gifts for you cutu! 🎁</p><!-- 4 Gift boxes -->
+     <div class="grid grid-cols-2 gap-4 w-full max-w-xs"><!-- Gift 1: Song -->
+      <div class="gift-box flex flex-col items-center p-4 rounded-2xl shadow-lg" style="background: linear-gradient(135deg, #e1bee7 0%, #ce93d8 100%);" onclick="showPage('page-song')">
+       <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-3" style="background: rgba(255,255,255,0.5);"><span class="text-4xl">🎵</span>
+       </div><span id="gift-1-text" class="text-sm font-medium text-center" style="color: #6a1b9a;">A Song For You My Baby</span>
+      </div><!-- Gift 2: Letter -->
+      <div class="gift-box flex flex-col items-center p-4 rounded-2xl shadow-lg" style="background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);" onclick="showPage('page-letter')">
+       <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-3 relative" style="background: rgba(255,255,255,0.5);"><span class="text-4xl">💌</span>
+       </div><span id="gift-2-text" class="text-sm font-medium text-center" style="color: #bf360c;">My Letter</span>
+      </div><!-- Gift 3: Photos -->
+      <div class="gift-box flex flex-col items-center p-4 rounded-2xl shadow-lg" style="background: linear-gradient(135deg, #b2dfdb 0%, #80cbc4 100%);" onclick="showPage('page-photos')">
+       <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-3" style="background: rgba(255,255,255,0.5);"><span class="text-4xl">📸</span>
+       </div><span id="gift-3-text" class="text-sm font-medium text-center" style="color: #00695c;">Our Memories😁</span>
+      </div><!-- Gift 4: Sunflower -->
+      <div class="gift-box flex flex-col items-center p-4 rounded-2xl shadow-lg" style="background: linear-gradient(135deg, #fff59d 0%, #ffee58 100%);" onclick="showPage('page-sunflower')">
+       <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-3" style="background: rgba(255,255,255,0.5);"><span class="text-4xl">🌻</span>
+       </div><span id="gift-4-text" class="text-sm font-medium text-center" style="color: #f57f17;">For You Cutie</span>
+      </div>
+     </div><!-- Bottom decoration -->
+     <div class="mt-6 text-center"><span class="text-2xl">✨💖✨</span>
+     </div>
+    </div>
+   </div><!-- Page 4: Song page -->
+   <div id="page-song" class="page">
+    <div class="phone-frame flex flex-col items-center justify-center p-6 relative" style="background: linear-gradient(180deg, #f3e5f5 0%, #e1bee7 100%);"><!-- Back button --> <button class="back-btn absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center shadow-md" style="background: white;" onclick="showPage('page-welcome')"> <span style="color: #7b1fa2;">←</span> </button> <!-- Music decoration -->
+     <div class="absolute top-8 right-8 text-3xl float-animation">
+      🎵
+     </div>
+     <div class="absolute bottom-20 left-6 text-2xl float-animation" style="animation-delay: 1s;">
+      🎶
+     </div><!-- Vinyl record design -->
+     <div class="w-40 h-40 rounded-full mb-6 flex items-center justify-center shadow-xl" style="background: radial-gradient(circle, #212121 0%, #424242 50%, #212121 100%);">
+      <div class="w-16 h-16 rounded-full" style="background: linear-gradient(135deg, #ce93d8 0%, #ab47bc 100%);"></div>
+     </div>
+     <h2 id="song-title" class="font-dancing text-3xl text-center mb-4" style="color: #7b1fa2;">Our Special Song</h2>
+     <p class="text-center text-purple-600 mb-6 px-4">This song reminds me of you every time I hear it 💜</p><!-- Song link button --> <a id="song-link" href="#" target="_blank" rel="noopener noreferrer" class="px-8 py-3 rounded-full font-semibold text-white shadow-lg flex items-center gap-2" style="background: linear-gradient(135deg, #ab47bc 0%, #7b1fa2 100%);"> <span>🎧</span> Play Our Song </a>
+     <p class="text-xs text-purple-400 mt-4">(Opens in new tab)</p>
+    </div>
+   </div><!-- Page 5: Letter page -->
+   <div id="page-letter" class="page">
+    <div class="phone-frame flex flex-col items-center p-6 relative overflow-y-auto" style="background: linear-gradient(180deg, #fbe9e7 0%, #ffccbc 100%);"><!-- Back button --> <button class="back-btn absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center shadow-md z-10" style="background: white;" onclick="showPage('page-welcome')"> <span style="color: #e64a19;">←</span> </button>
+     <h2 id="letter-title" class="font-dancing text-3xl text-center mt-8 mb-4" style="color: #bf360c;">My Dearest Santu</h2><!-- Letter paper -->
+     <div class="letter-paper w-full rounded-lg p-5 relative"><!-- Envelope icon -->
+      <div class="absolute -top-3 left-1/2 transform -translate-x-1/2"><span class="text-3xl">💌</span>
+      </div>
+      <p id="letter-content" class="font-quicksand text-gray-700 leading-relaxed mt-4 whitespace-pre-line" style="font-size: 14px;">My dearest love, Every day with you feels like a beautiful dream I never want to wake up from. Your smile lights up my world, and your laughter is my favorite melody. I fall more in love with you with each passing moment. You are my today and all of my tomorrows. Forever yours, With all my heart 💕</p><!-- Signature heart -->
+      <div class="text-right mt-4"><span class="text-2xl">💖</span>
+      </div>
+     </div><!-- Bottom decoration -->
+     <div class="mt-4"><span class="text-xl">✨💕✨</span>
+     </div>
+    </div>
+   </div><!-- Page 6: Photos page -->
+   <div id="page-photos" class="page">
+    <div class="phone-frame flex flex-col items-center p-6 relative overflow-y-auto" style="background: linear-gradient(180deg, #e0f2f1 0%, #b2dfdb 100%);"><!-- Back button --> <button class="back-btn absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center shadow-md z-10" style="background: white;" onclick="showPage('page-welcome')"> <span style="color: #00796b;">←</span> </button>
+     <h2 id="photos-title" class="font-dancing text-3xl text-center mt-8 mb-4" style="color: #00695c;">Our Beautiful Moments</h2>
+     <p class="text-center text-teal-600 mb-4 text-sm">📷 Our precious memories together</p><!-- 3 Photo placeholders -->
+     <div class="flex flex-col gap-4 w-full">
+      <div class="photo-placeholder h-32 w-full" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-color: #4dd0e1;"><span class="text-teal-400 text-sm">📷 Photo 1</span>
+      </div>
+      <div class="photo-placeholder h-32 w-full" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-color: #4dd0e1;"><span class="text-teal-400 text-sm">📷 Photo 2</span>
+      </div>
+      <div class="photo-placeholder h-32 w-full" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-color: #4dd0e1;"><span class="text-teal-400 text-sm">📷 Photo 3</span>
+      </div>
+     </div><!-- Bottom decoration -->
+     <div class="mt-4"><span class="text-xl">💚✨💚</span>
+     </div>
+    </div>
+   </div><!-- Page 7: Sunflower page -->
+   <div id="page-sunflower" class="page">
+    <div class="phone-frame flex flex-col items-center justify-center p-6 relative" style="background: linear-gradient(180deg, #fffde7 0%, #fff9c4 100%);"><!-- Back button --> <button class="back-btn absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center shadow-md" style="background: white;" onclick="showPage('page-welcome')"> <span style="color: #f9a825;">←</span> </button> <!-- Sun rays decoration -->
+     <div class="absolute top-6 right-6 text-2xl float-animation">
+      ☀️
+     </div>
+     <h2 id="sunflower-title" class="font-dancing text-3xl text-center mb-4" style="color: #f57f17;">You Are My Sunshine</h2><!-- Sunflower -->
+     <div class="text-8xl mb-6 float-animation">
+      🌻
+     </div><!-- Love notes -->
+     <div class="flex flex-col gap-3 w-full px-4">
+      <div class="rounded-xl p-3 text-center shadow-md" style="background: rgba(255,255,255,0.8);">
+       <p id="love-note-1" class="text-amber-800 font-medium">💛 You make my heart bloom</p>
+      </div>
+      <div class="rounded-xl p-3 text-center shadow-md" style="background: rgba(255,255,255,0.8);">
+       <p id="love-note-2" class="text-amber-800 font-medium">☀️ Every moment with you is golden</p>
+      </div>
+      <div class="rounded-xl p-3 text-center shadow-md" style="background: rgba(255,255,255,0.8);">
+       <p id="love-note-3" class="text-amber-800 font-medium">🌻 Forever yours, with all my love</p>
+      </div>
+     </div><!-- Bottom decoration -->
+     <div class="mt-6"><span class="text-xl">✨💛✨</span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      main_question: "Will you be my Valentine?",
+      welcome_title: "Welcome My Santu",
+      gift_1_label: "A Song For You",
+      gift_2_label: "My Letter",
+      gift_3_label: "Our Memories",
+      gift_4_label: "For You",
+      song_title: "Our Special Song",
+      song_url: "https://youtube.com",
+      letter_title: "My Dearest Santu",
+      letter_content: "My dearest love,\n\nEvery day with you feels like a beautiful dream I never want to wake up from. Your smile lights up my world, and your laughter is my favorite melody.\n\nI fall more in love with you with each passing moment. You are my today and all of my tomorrows.\n\nForever yours,\nWith all my heart 💕",
+      photos_title: "Our Beautiful Moments",
+      sunflower_title: "You Are My Sunshine",
+      love_note_1: "💛 You make my heart bloom",
+      love_note_2: "☀️ Every moment with you is golden",
+      love_note_3: "🌻 Forever yours, with all my love",
+      primary_color: "#d81b60",
+      secondary_color: "#f8bbd9",
+      background_color: "#ffeef8",
+      text_color: "#4a4a4a",
+      accent_color: "#ffb300"
+    };
+
+    let config = { ...defaultConfig };
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    async function onConfigChange(newConfig) {
+      config = { ...config, ...newConfig };
+      
+      // Update main question
+      document.getElementById('main-question').textContent = config.main_question || defaultConfig.main_question;
+      
+      // Update welcome title
+      document.getElementById('welcome-title').textContent = config.welcome_title || defaultConfig.welcome_title;
+      
+      // Update gift labels
+      document.getElementById('gift-1-text').textContent = config.gift_1_label || defaultConfig.gift_1_label;
+      document.getElementById('gift-2-text').textContent = config.gift_2_label || defaultConfig.gift_2_label;
+      document.getElementById('gift-3-text').textContent = config.gift_3_label || defaultConfig.gift_3_label;
+      document.getElementById('gift-4-text').textContent = config.gift_4_label || defaultConfig.gift_4_label;
+      
+      // Update song page
+      document.getElementById('song-title').textContent = config.song_title || defaultConfig.song_title;
+      document.getElementById('song-link').href = config.song_url || defaultConfig.song_url;
+      
+      // Update letter page
+      document.getElementById('letter-title').textContent = config.letter_title || defaultConfig.letter_title;
+      document.getElementById('letter-content').textContent = config.letter_content || defaultConfig.letter_content;
+      
+      // Update photos page
+      document.getElementById('photos-title').textContent = config.photos_title || defaultConfig.photos_title;
+      
+      // Update sunflower page
+      document.getElementById('sunflower-title').textContent = config.sunflower_title || defaultConfig.sunflower_title;
+      document.getElementById('love-note-1').textContent = config.love_note_1 || defaultConfig.love_note_1;
+      document.getElementById('love-note-2').textContent = config.love_note_2 || defaultConfig.love_note_2;
+      document.getElementById('love-note-3').textContent = config.love_note_3 || defaultConfig.love_note_3;
+    }
+
+    function mapToCapabilities(cfg) {
+      return {
+        recolorables: [
+          {
+            get: () => cfg.background_color || defaultConfig.background_color,
+            set: (value) => {
+              cfg.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => cfg.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              cfg.primary_color = value;
+              window.elementSdk.setConfig({ primary_color: value });
+            }
+          },
+          {
+            get: () => cfg.secondary_color || defaultConfig.secondary_color,
+            set: (value) => {
+              cfg.secondary_color = value;
+              window.elementSdk.setConfig({ secondary_color: value });
+            }
+          },
+          {
+            get: () => cfg.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              cfg.accent_color = value;
+              window.elementSdk.setConfig({ accent_color: value });
+            }
+          },
+          {
+            get: () => cfg.text_color || defaultConfig.text_color,
+            set: (value) => {
+              cfg.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => cfg.font_family || 'Quicksand',
+          set: (value) => {
+            cfg.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: undefined
+      };
+    }
+
+        function mapToEditPanelValues(cfg) {
+      return new Map([
+        ["main_question", cfg.main_question || defaultConfig.main_question],
+        ["welcome_title", cfg.welcome_title || defaultConfig.welcome_title],
+        ["gift_1_label", cfg.gift_1_label || defaultConfig.gift_1_label],
+        ["gift_2_label", cfg.gift_2_label || defaultConfig.gift_2_label],
+        ["gift_3_label", cfg.gift_3_label || defaultConfig.gift_3_label],
+        ["gift_4_label", cfg.gift_4_label || defaultConfig.gift_4_label],
+        ["song_title", cfg.song_title || defaultConfig.song_title],
+        ["song_url", cfg.song_url || defaultConfig.song_url],
+        ["letter_title", cfg.letter_title || defaultConfig.letter_title],
+        ["letter_content", cfg.letter_content || 
+defaultConfig.letter_content],
+        ["photos_title", cfg.photos_title || defaultConfig.photos_title],
+        ["sunflower_title", cfg.sunflower_title || defaultConfig.sunflower_title],
+        ["love_note_1", cfg.love_note_1 || defaultConfig.love_note_1],
+        ["love_note_2", cfg.love_note_2 || defaultConfig.love_note_2],
+        ["love_note_3", cfg.love_note_3 || defaultConfig.love_note_3]
+      ]);
+    }
+
+    // Button event listeners
+document.getElementById('btn-yes').addEventListener('click', () => {
+      showPage('page-welcome');
+    });
+
+    document.getElementById('btn-no').addEventListener('click', () => {
+      showPage('page-goback');
+    });
+
+    document.getElementById('btn-goback').addEventListener('click', () => {
+      showPage('page-main');
+    });
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+// Initial render
+    onConfigChange(config);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c4f467cc7e37b2f',t:'MTc2OTU5MDU3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')
+[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
